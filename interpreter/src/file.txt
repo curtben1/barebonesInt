@@ -1,0 +1,4 @@
+clear myVar;
+incr myVar;
+incr myVar;
+clear myVar; 
