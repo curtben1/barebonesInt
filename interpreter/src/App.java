@@ -53,9 +53,10 @@ public class App {
         
         int newVal;
         int lineNum = 0;
-        for (String[]line:codeArr){
-            
+        for (int i=0;i< codeArr.length;i++){
+            String[] line = codeArr[i];
             switch (line[0]){
+
                 case "clear":
                     App.variables.put(line[1],0);
                     System.out.println(line[1] + ": 0");
@@ -76,10 +77,11 @@ public class App {
                     }
                     else{
                         //while loop time
+                        int tempLineNum = lineNum;
                         while (variables.get(line[1]) !=0){
 
-                        
-                            int tempLineNum = lineNum;
+                            System.out.println("the loop condition is: " + line[1] + Integer.toString(variables.get(line[1])));
+                            tempLineNum = lineNum;
                             int endCounter = 0;
                             do{
                                 if (codeArr[tempLineNum][0].equals("while") ){
@@ -87,7 +89,7 @@ public class App {
                                     tempLineNum ++;
                                 }else if (codeArr[tempLineNum][0].equals("end") ){
                                     endCounter ++;
-                                    System.out.println("end counter"+ Integer.toString(endCounter));
+                                    //System.out.println("end counter"+ Integer.toString(endCounter));
                                     
                                 }
                                 else{
@@ -99,9 +101,12 @@ public class App {
                             String[][] tempArr = new String[tempLineNum-lineNum][1];
                             System.arraycopy(codeArr, lineNum + 1,tempArr, 0, tempLineNum-lineNum);
                             execute(tempArr);
-                            // enters while loop but no real exit condition, currently runs twice for unkown reason, after calling execute should check condition (should also check condition before starting. Maybe use a while loop to implement)
+                            //runs an extra time as after exit condition the actual for loop runs over the while loops lines one more time
+
                     
                         }
+                        i=tempLineNum;
+                        lineNum=tempLineNum;
                         
                     }
                 
