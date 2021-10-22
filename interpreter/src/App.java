@@ -76,16 +76,33 @@ public class App {
                     }
                     else{
                         //while loop time
+                        while (variables.get(line[1]) !=0){
+
                         
-                        int tempLineNum = lineNum;
-                        while (!(codeArr[tempLineNum][0].equals("end") )){
-                            tempLineNum ++;
-                            
+                            int tempLineNum = lineNum;
+                            int endCounter = 0;
+                            do{
+                                if (codeArr[tempLineNum][0].equals("while") ){
+                                    endCounter -= 1;
+                                    tempLineNum ++;
+                                }else if (codeArr[tempLineNum][0].equals("end") ){
+                                    endCounter ++;
+                                    System.out.println("end counter"+ Integer.toString(endCounter));
+                                    
+                                }
+                                else{
+                                    tempLineNum ++;
+                                }
+                                
+                                
+                            }while (endCounter !=0);
+                            String[][] tempArr = new String[tempLineNum-lineNum][1];
+                            System.arraycopy(codeArr, lineNum + 1,tempArr, 0, tempLineNum-lineNum);
+                            execute(tempArr);
+                            // enters while loop but no real exit condition, currently runs twice for unkown reason, after calling execute should check condition (should also check condition before starting. Maybe use a while loop to implement)
+                    
                         }
-                        String[][] tempArr = new String[tempLineNum-lineNum][1];
-                        System.arraycopy(codeArr, lineNum + 1,tempArr, 0, tempLineNum-lineNum);
-                        execute(tempArr);
-                        // enters while loop but no real exit condition, currently runs twice for unkown reason, after calling execute should check condition (should also check condition before starting. Maybe use a while loop to implement)
+                        
                     }
                 
             } 
