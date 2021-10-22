@@ -1,4 +1,11 @@
 clear myVar;
 incr myVar;
 incr myVar;
-clear myVar; 
+incr myVar;
+incr myVar;
+incr myVar;
+incr myVar;
+incr myVar;
+while myVar not 0 do;
+decr myVar;
+end;

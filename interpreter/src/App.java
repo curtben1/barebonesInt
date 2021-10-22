@@ -12,7 +12,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class App {
+    static HashMap<String,Integer>  variables = new HashMap<String,Integer>();
     public static void main(String[] args) throws Exception {
+        
         String[][] codeArr = generateCode();
         /*
         for(String[]row:codeArr){
@@ -29,11 +31,13 @@ public class App {
     
     public static String[][] generateCode() throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));  
-        String fileName = br.readLine();
-        String content = new String(Files.readAllBytes(Paths.get(fileName)));
-        content = content.replace("\t", "");
+        //String fileName = br.readLine();
+        String content = new String(Files.readAllBytes(Paths.get("file.txt")));
+        content = content.replace("\r", "");
         content = content.replace("\n", "");
-        content = content.replace("  ", "");
+        content = content.replace("    ", "");
+        
+        System.out.println(content);
         String[] myCode = content.split(";");
         String[][] myArr = new String[myCode.length][1];
 
@@ -46,23 +50,46 @@ public class App {
 
 
     public static void execute(String[][] codeArr) throws Exception{
-        HashMap<String,Integer> variables = new HashMap<String,Integer>();
-        System.out.println(Arrays.toString(codeArr));
+        
+        int newVal;
+        int lineNum = 0;
         for (String[]line:codeArr){
-            System.out.println(Arrays.toString(line));
+            
             switch (line[0]){
                 case "clear":
-                    variables.put(line[1],0);
+                    App.variables.put(line[1],0);
                     System.out.println(line[1] + ": 0");
                     break;
                 case "incr":
-                    int newVal = variables.get(line[1]) + 1;
+                    newVal = variables.get(line[1]) + 1;
                     variables.put(line[1], newVal);
-                    System.out.println(newVal);
+                    System.out.println(line[1] +": " + Integer.toString(newVal));
                     break;
+                case "decr":
+                    newVal = variables.get(line[1]) -1;
+                    variables.put(line[1], newVal);
+                    System.out.println(line[1] +": " + Integer.toString(newVal));
+                    break;
+                case "while":
+                    if (! (line[2].equals("not") || line[3].equals("0") ||line[3].equals("do"))){
+                        System.out.println("error bad syntax");
+                    }
+                    else{
+                        //while loop time
+                        
+                        int tempLineNum = lineNum;
+                        while (!(codeArr[tempLineNum][0].equals("end") )){
+                            tempLineNum ++;
+                            
+                        }
+                        String[][] tempArr = new String[tempLineNum-lineNum][1];
+                        System.arraycopy(codeArr, lineNum + 1,tempArr, 0, tempLineNum-lineNum);
+                        execute(tempArr);
+                        // enters while loop but no real exit condition, currently runs twice for unkown reason, after calling execute should check condition (should also check condition before starting. Maybe use a while loop to implement)
+                    }
                 
             } 
-            
+            lineNum++;  
         }
     }
 }
