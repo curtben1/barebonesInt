@@ -80,7 +80,7 @@ public class App {
                         int tempLineNum = lineNum;
                         while (variables.get(line[1]) !=0){
 
-                            System.out.println("the loop condition is: " + line[1] + Integer.toString(variables.get(line[1])));
+                            //System.out.println("the loop condition is: " + line[1] + Integer.toString(variables.get(line[1])));
                             tempLineNum = lineNum;
                             int endCounter = 0;
                             do{
@@ -89,6 +89,9 @@ public class App {
                                     tempLineNum ++;
                                 }else if (codeArr[tempLineNum][0].equals("end") ){
                                     endCounter ++;
+                                    if (endCounter != 0){
+                                        tempLineNum ++;
+                                    }
                                     //System.out.println("end counter"+ Integer.toString(endCounter));
                                     
                                 }
@@ -101,15 +104,11 @@ public class App {
                             String[][] tempArr = new String[tempLineNum-lineNum][1];
                             System.arraycopy(codeArr, lineNum + 1,tempArr, 0, tempLineNum-lineNum);
                             execute(tempArr);
-                            //runs an extra time as after exit condition the actual for loop runs over the while loops lines one more time
-
-                    
                         }
                         i=tempLineNum;
                         lineNum=tempLineNum;
-                        
+                        //System.out.println("jump to "+ Arrays.toString(codeArr[lineNum]));
                     }
-                
             } 
             lineNum++;  
         }
