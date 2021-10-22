@@ -16,13 +16,6 @@ public class App {
     public static void main(String[] args) throws Exception {
         
         String[][] codeArr = generateCode();
-        /*
-        for(String[]row:codeArr){
-            for(String word:row){
-                System.out.println(word);
-            }
-        }
-        */
         execute(codeArr);
         
 
@@ -30,9 +23,15 @@ public class App {
     }
     
     public static String[][] generateCode() throws Exception{
+        /**
+        Function that effectively performs lexical analysis by generating a token stream and removing 
+        unnecesary characters and generating a token stream/array of instructions. It does not check for
+        errors at this stage as it is interpreting not compiling so can at runtime with no issues.
+        **/
+        System.out.println("Enter file name/path to file:");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));  
-        //String fileName = br.readLine();
-        String content = new String(Files.readAllBytes(Paths.get("file.txt")));
+        String fileName = br.readLine();
+        String content = new String(Files.readAllBytes(Paths.get(fileName)));
         content = content.replace("\r", "");
         content = content.replace("\n", "");
         content = content.replace("    ", "");
@@ -109,6 +108,12 @@ public class App {
                         lineNum=tempLineNum;
                         //System.out.println("jump to "+ Arrays.toString(codeArr[lineNum]));
                     }
+                    break;
+                case "end":
+                    break;
+                default:
+                    System.out.println("unrecognised instruction");
+                    
             } 
             lineNum++;  
         }
