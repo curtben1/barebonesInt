@@ -30,8 +30,9 @@ public class App {
         String content = new String(Files.readAllBytes(Paths.get(fileName)));
         content = content.replace("\r", "");
         content = content.replace("\n", "");
-        content = content.replace("    ", "");
-        
+        content = content.replace("   ", "");
+        content = content.replace("  ", "");
+
         System.out.println(content);
         String[] myCode = content.split(";");
         String[][] myArr = new String[myCode.length][1];
