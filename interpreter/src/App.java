@@ -32,6 +32,7 @@ public class App {
         content = content.replace("\n", "");
         content = content.replace("   ", "");
         content = content.replace("  ", "");
+        content = content.replace("; ", ";");
 
         System.out.println(content);
         String[] myCode = content.split(";");
