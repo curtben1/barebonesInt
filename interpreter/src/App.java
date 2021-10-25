@@ -11,17 +11,16 @@ public class App {
   static HashMap<String, Integer> variables = new HashMap<String, Integer>();
 
   public static void main(String[] args) throws Exception {
-    try{
+    try {
       String[][] codeArr = generateCode();
       try {
         execute(codeArr);
       } catch (Exception e) {
-        System.out.println("Error in code execution")
+        System.out.println("Error in code execution");
       }
-    } catch(Exception e){
+    } catch (Exception e) {
       System.out.println("error in code generation");
-    } 
-    
+    }
   }
 
   public static String[][] generateCode() throws Exception {
